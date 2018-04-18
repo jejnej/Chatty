@@ -29,7 +29,9 @@ class App extends Component {
         username: this.state.currentUser.name,
         content:text 
      };
+     console.log("Message: ", this.socket)
      this.setState({messages:[...this.state.messages, message]});
+    this.socket.send(JSON.stringify(message));
 
   }
 
@@ -38,6 +40,7 @@ class App extends Component {
     this.socket.onopen = (event) => {
     console.log("Connected to Server")
     }
+
  
   }
   
