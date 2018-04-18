@@ -9,7 +9,7 @@ class NavBar extends Component {
     return (
       
       <nav className="navbar">
-         <img src="/docs/dialogue.png" />
+         <img src="/docs/chats.png" />
         <a href="/" className="navbar-brand">Chatty</a>
       </nav>
     );
