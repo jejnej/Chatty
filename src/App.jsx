@@ -7,8 +7,9 @@ class App extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        currentUser: "Anonymous",  // optional. if currentUser is not defined, it means the user is Anonymous
-        messages: []
+        currentUser: "Anonymous", 
+        messages: [],
+        numUsers: 0
       };
   }
 
@@ -53,6 +54,12 @@ class App extends Component {
           this.setState({messages:[...this.state.messages, newData]});
           break;
 
+          case "numberUsers":
+          this.setState({
+             numUsers: newData.totalUsers
+            });
+
+
           default:
           throw new Error("Unknown event type " + newData.type);
       }   
@@ -62,7 +69,7 @@ class App extends Component {
     render() {
     return (
     <div> 
-    <NavBar />
+    <NavBar numUsers = {this.state.numUsers}/>
     <main>
      <MessageList messages = {this.state.messages} />
     </main>
