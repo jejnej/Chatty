@@ -25,7 +25,7 @@ class App extends Component {
   onNewUser = (newName) => {
     console.log(newName);
     const user = {
-      type: "notification",
+      type: "postNotification",
       newUser: newName,
     };  
     this.socket.send(JSON.stringify(user));
@@ -40,20 +40,16 @@ class App extends Component {
     this.socket.onmessage = (event) => {
       const newData= JSON.parse(event.data);
       switch(newData.type) {
-        case "postMessage":
+        case "incomingMessage":
         this.setState({messages:[...this.state.messages, newData]}); 
         break;
         
           case "newUser":
           this.setState({currentUser:newData.newUser});
           break;
-        // case "notification":
-    
-        //   break;
-        // case "totalUsers":
-      
-        //   break;
-        
+   
+          default:
+          throw new Error("Unknown event type " + newData.type);
       }   
     }
   

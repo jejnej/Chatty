@@ -34,29 +34,27 @@ wss.on('connection', (ws) => {
    
     switch(parsedData.type) {
      case "postMessage":
-     const messageDisplay = { 
+     const displayMessage = { 
       id: uuidv1(),
-      type: "postMessage",
+      type: "incomingMessage",
       username: parsedData.username,
       content: parsedData.content
     };
-    wss.broadcast(JSON.stringify(messageDisplay));
+    wss.broadcast(JSON.stringify(displayMessage));
     break;
     
-   case "notification":
-
-   let postNotification = {
-     type:"notification",
+   case "postNotification":
+   let displayNotification = {
+     type:"incomingNotification",
      id: uuidv1(),
      content: parsedData.content
    };
-
    let newName = {
      id:uuidv1(),
      type:"newUser",
      newUser: parsedData.newUser
    };
-   wss.broadcast(JSON.stringify(postNotification));
+   wss.broadcast(JSON.stringify(displayNotification));
    ws.send(JSON.stringify(newName));
    break;
   }
