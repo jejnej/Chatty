@@ -26,7 +26,8 @@ class App extends Component {
     console.log(newName);
     const user = {
       type: "postNotification",
-      newUser: newName,
+      newUser:newName,
+      content: `📣 ${this.state.currentUser} has changed their name to ${newName}` 
     };  
     this.socket.send(JSON.stringify(user));
   }
@@ -47,14 +48,17 @@ class App extends Component {
           case "newUser":
           this.setState({currentUser:newData.newUser});
           break;
-   
+         
+          case "incomingNotification":
+          this.setState({messages:[...this.state.messages, newData]});
+          break;
+
           default:
           throw new Error("Unknown event type " + newData.type);
       }   
     }
   
-  }
-  
+  } 
     render() {
     return (
     <div> 

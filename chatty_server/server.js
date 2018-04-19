@@ -45,8 +45,8 @@ wss.on('connection', (ws) => {
     
    case "postNotification":
    let displayNotification = {
-     type:"incomingNotification",
      id: uuidv1(),
+     type:"incomingNotification",
      content: parsedData.content
    };
    let newName = {
