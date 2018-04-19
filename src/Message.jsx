@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-
+// Function to get the image and call it in ImG Tag
 function getImage (content) {
   const imgRegExp = /https?:\/\/.*\.(?:png|jpg|gif)/i;
   const imageMatch = content.match(imgRegExp)
@@ -11,6 +11,7 @@ function getImage (content) {
   }
 }
 
+// Filter removes the URL and only displays the message and the image
 function filterImage(content) {
   const imgRegExp = /https?:\/\/.*\.(?:png|jpg|gif)/i;
   const imgMatch = content.match(imgRegExp)
@@ -26,9 +27,7 @@ class Message extends Component {
       color:this.props.color 
     }  
   }
- }
-
- 
+ } 
     render() {
       console.log("Hello")
       let image = getImage(this.props.content)

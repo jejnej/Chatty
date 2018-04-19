@@ -15,6 +15,7 @@ class App extends Component {
       };
   }
 
+  // Handles new messages to post 
   onNewMessage = (text) => {
      const message = {
        type:"postMessage",
@@ -25,6 +26,7 @@ class App extends Component {
     this.socket.send(JSON.stringify(message));
   }
 
+  // Handles new user name change and the notification for username change
   onNewUser = (newName) => {
     console.log(newName);
     const user = {

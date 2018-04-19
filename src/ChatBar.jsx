@@ -6,6 +6,8 @@ class ChatBar extends Component {
    super(props);
    this.state = {content: ""}
  }
+
+ //Handles messages on key press "Enter"
   _handleKeyPressMessage = (e) => {
     if (e.key === 'Enter') {
       this.props.newMessage(e.target.value);
@@ -13,8 +15,9 @@ class ChatBar extends Component {
     }
   }
 
+// Handles user name change on key press "Enter"
   _handleKeyPressUser = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       this.props.changeUser(e.target.value);
     }
   }
