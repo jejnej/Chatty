@@ -14,6 +14,7 @@ body {
   font-family: 'Raleway';
   font-size: 14px;
   margin: 70px 0;
+  overflow:auto;
 }
 
 .chatbar {
@@ -94,12 +95,16 @@ body {
   text-decoration: none;
   letter-spacing: 5px;
 }
-
 .user-count {
   margin-left:700px;
   color:white;
   font-size:18px;
-  margin-top:-40px;
+  margin-top:-40px;  
+}
 
-  
+.message-img {
+  margin-top:30px;
+  align-content:center;
+  width:400px;
+  height:200px;
 }

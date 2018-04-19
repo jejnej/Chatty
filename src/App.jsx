@@ -64,7 +64,7 @@ class App extends Component {
         case "userColor":
         this.setState({color: newData.color})
         break;
-
+        
         default:
         throw new Error("Unknown event type " + newData.type);
       }   

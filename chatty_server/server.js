@@ -24,6 +24,10 @@ wss.broadcast = function(data) {
 
 const colors = ["#6666CC", "#008B8B", "#EE82EE", "#00008B", "#9eccaf", "#ff8b94", "#a10f6f"]
 let colorpicker = 0;
+
+
+
+
 // Set up a callback that will run when a client connects to the server
 // When a client connects they are assigned a socket, represented by
 // the ws parameter in the callback.
@@ -31,11 +35,11 @@ wss.on('connection', (ws) => {
     console.log('Client connected');
     let totalUsers = wss.clients.size;
     let numberUsers = {
-        type: 'numberUsers',
+        type: "numberUsers",
         totalUsers: totalUsers,
     }
     wss.broadcast(JSON.stringify(numberUsers));
-    
+ 
     let colorUser = colors[colorpicker%(colors.length)]; 
     colorpicker++;
     let userColor = {
@@ -47,7 +51,6 @@ wss.on('connection', (ws) => {
 
     ws.on('message', (message) => {
         const parsedData = JSON.parse(message);
-    console.log(parsedData)
         switch (parsedData.type) {
             case "postMessage":
                 let displayMessage = {
@@ -57,7 +60,6 @@ wss.on('connection', (ws) => {
                     content: parsedData.content,
                     color: parsedData.color
                 };
-                console.log(displayMessage)
                 wss.broadcast(JSON.stringify(displayMessage));
                 break;
 
@@ -95,3 +97,7 @@ wss.on('connection', (ws) => {
 
 
 });
+
+// /([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/i
+
+// (http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))
