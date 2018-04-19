@@ -1,5 +1,3 @@
-// server.js
-
 const express = require('express');
 const WebSocket = require('ws');
 const SocketServer = require('ws').Server;
@@ -32,15 +30,38 @@ wss.on('connection', (ws) => {
   console.log('Client connected');
 
   ws.on('message', (message) => {
-    const parsedMessage = JSON.parse(message);
-    console.log("User " + parsedMessage.username + " said: " + parsedMessage.content);
-    let messageDisplay = {
+    const parsedData = JSON.parse(message);
+   
+    switch(parsedData.type) {
+     case "postMessage":
+     const messageDisplay = { 
       id: uuidv1(),
-      username: parsedMessage.username,
-      content: parsedMessage.content
+      type: "postMessage",
+      username: parsedData.username,
+      content: parsedData.content
     };
-    console.log(JSON.stringify(messageDisplay));
-   wss.broadcast(JSON.stringify(messageDisplay));
+    wss.broadcast(JSON.stringify(messageDisplay));
+    break;
+    
+   case "notification":
+
+   let postNotification = {
+     type:"notification",
+     id: uuidv1(),
+     content: parsedData.content
+   };
+
+   let newName = {
+     id:uuidv1(),
+     type:"newUser",
+     newUser: parsedData.newUser
+   };
+   wss.broadcast(JSON.stringify(postNotification));
+   ws.send(JSON.stringify(newName));
+   break;
+  }
+  
+   
   });
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.

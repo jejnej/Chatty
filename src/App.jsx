@@ -7,18 +7,28 @@ class App extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        currentUser: {name: "Jody"}, // optional. if currentUser is not defined, it means the user is Anonymous
+        currentUser: "Anonymous",  // optional. if currentUser is not defined, it means the user is Anonymous
         messages: []
       };
   }
 
   onNewMessage = (text) => {
      const message = {
-        username: this.state.currentUser.name,
+       type:"postMessage",
+        username: this.state.currentUser,
         content:text 
-     };
-     console.log("Message: ", this.socket)   
+     };  
     this.socket.send(JSON.stringify(message));
+    // this.setState({messages:[...this.state.messages, message]});
+  }
+
+  onNewUser = (newName) => {
+    console.log(newName);
+    const user = {
+      type: "notification",
+      newUser: newName,
+    };  
+    this.socket.send(JSON.stringify(user));
   }
 
   componentDidMount() {
@@ -26,18 +36,29 @@ class App extends Component {
     this.socket.onopen = (event) => {
     console.log("Connected to Server")
     }
+    
     this.socket.onmessage = (event) => {
-      const receivedMessage= JSON.parse(event.data);
-      this.setState({messages: this.state.messages.concat(receivedMessage)});
+      const newData= JSON.parse(event.data);
+      switch(newData.type) {
+        case "postMessage":
+        this.setState({messages:[...this.state.messages, newData]}); 
+        break;
+        
+          case "newUser":
+          this.setState({currentUser:newData.newUser});
+          break;
+        // case "notification":
+    
+        //   break;
+        // case "totalUsers":
+      
+        //   break;
+        
+      }   
     }
-
- 
+  
   }
   
-  render() {
-    // more code here..
-  }
-
     render() {
     return (
     <div> 
@@ -45,7 +66,7 @@ class App extends Component {
     <main>
      <MessageList messages = {this.state.messages} />
     </main>
-    <ChatBar currentUser = {this.state.currentUser.name} newMessage={this.onNewMessage}/>
+    <ChatBar currentUser = {this.state.currentUser} changeUser = {this.onNewUser} newMessage={this.onNewMessage}/>
     </div>
     );
   }
