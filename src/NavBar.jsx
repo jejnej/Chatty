@@ -11,7 +11,7 @@ class NavBar extends Component {
       <nav className="navbar">
          <img src="/docs/chats.png" />
         <a href="/" className="navbar-brand">Chatty</a>
-        <span className="user-count">{this.props.numUsers} users online.</span>
+        <div className="user-count">{this.props.numUsers} users online.</div>
       </nav>
     );
   }

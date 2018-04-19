@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
 @import url("https://fonts.googleapis.com/css?family=Acme");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
+@import url("https://fonts.googleapis.com/css?family=Raleway");
 
 h1 {
   color: tomato;
@@ -10,7 +11,7 @@ h1 {
 body {
   background: white;
   color: black;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Raleway';
   font-size: 14px;
   margin: 70px 0;
 }
@@ -73,7 +74,7 @@ body {
 .navbar {
   background: #6D7993;;
   border-bottom: 1px solid black;
-  height: 60px;
+  height: 70px;
   left: 0;
   padding: 0 10px;
   position: fixed;
@@ -92,4 +93,13 @@ body {
   padding: 0 10px;
   text-decoration: none;
   letter-spacing: 5px;
+}
+
+.user-count {
+  margin-left:700px;
+  color:white;
+  font-size:18px;
+  margin-top:-40px;
+
+  
 }

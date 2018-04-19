@@ -3,13 +3,15 @@ import NavBar from './Navbar.jsx';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
 
+
 class App extends Component {
   constructor(props) {
       super(props);
       this.state = {
         currentUser: "Anonymous", 
         messages: [],
-        numUsers: 0
+        numUsers: 0,
+        color: ""
       };
   }
 
@@ -17,10 +19,10 @@ class App extends Component {
      const message = {
        type:"postMessage",
         username: this.state.currentUser,
-        content:text 
+        content:text, 
+        color: this.state.color
      };  
     this.socket.send(JSON.stringify(message));
-    // this.setState({messages:[...this.state.messages, message]});
   }
 
   onNewUser = (newName) => {
@@ -43,25 +45,28 @@ class App extends Component {
       const newData= JSON.parse(event.data);
       switch(newData.type) {
         case "incomingMessage":
-        this.setState({messages:[...this.state.messages, newData]}); 
+        this.setState({messages:[...this.state.messages, newData]});
+        console.log(newData) 
         break;
         
-          case "newUser":
-          this.setState({currentUser:newData.newUser});
-          break;
+        case "newUser":
+        this.setState({currentUser:newData.newUser});
+        break;
          
-          case "incomingNotification":
-          this.setState({messages:[...this.state.messages, newData]});
-          break;
+        case "incomingNotification":
+        this.setState({messages:[...this.state.messages, newData]});
+        break;
 
-          case "numberUsers":
-          this.setState({
-             numUsers: newData.totalUsers
-            });
+        case "numberUsers":
+        this.setState({numUsers: newData.totalUsers});
+        break;
 
+        case "userColor":
+        this.setState({color: newData.color})
+        break;
 
-          default:
-          throw new Error("Unknown event type " + newData.type);
+        default:
+        throw new Error("Unknown event type " + newData.type);
       }   
     }
   
@@ -76,7 +81,6 @@ class App extends Component {
     <ChatBar currentUser = {this.state.currentUser} changeUser = {this.onNewUser} newMessage={this.onNewMessage}/>
     </div>
     );
-  }
-  
+  }  
 }
 export default App;
