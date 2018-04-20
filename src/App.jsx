@@ -42,8 +42,9 @@ class App extends Component {
     this.socket.onopen = (event) => {
     console.log("Connected to Server")
     }
-    
+ // Code that interprets incoming messages 
     this.socket.onmessage = (event) => {
+// Parsed data back into original objecta and handle the messages by type
       const newData= JSON.parse(event.data);
       switch(newData.type) {
         case "incomingMessage":

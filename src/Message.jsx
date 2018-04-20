@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 // Function to get the image and call it in ImG Tag
 function getImage (content) {
-  const imgRegExp = /https?:\/\/.*\.(?:png|jpg|gif)/i;
+  const imgRegExp = /https?:\/\/.*\.(?:png|jpg|gif)/i; 
   const imageMatch = content.match(imgRegExp)
   if(imageMatch) {
    return imageMatch[0]

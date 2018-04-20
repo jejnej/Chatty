@@ -47,6 +47,9 @@ wss.on('connection', (ws) => {
 
 
     ws.on('message', (message) => {
+    // Construct a msg object containing the data the server needs 
+    //to process the message from the chat client.
+   
         const parsedData = JSON.parse(message);
         switch (parsedData.type) {
             case "postMessage":
