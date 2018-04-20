@@ -4,7 +4,7 @@
 
 
 ## Final Product
-!["Chatty home page"](...)
+!["Chatty home page"](https://github.com/josekhon/Chatty/blob/master/docs/chatty-home.png?raw=true)
 
 ## Getting Started
 1. Install the dependencies and start the server.
