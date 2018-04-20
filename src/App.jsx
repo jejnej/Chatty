@@ -37,6 +37,12 @@ class App extends Component {
     this.socket.send(JSON.stringify(user));
   }
 
+// For auto scroll when messages are added
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+  
+
   componentDidMount() {
     this.socket = new WebSocket('ws://localhost:3001')
     this.socket.onopen = (event) => {
@@ -73,6 +79,12 @@ class App extends Component {
       }   
     }
   
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+    
   } 
     render() {
     return (
@@ -81,6 +93,9 @@ class App extends Component {
     <main>
      <MessageList messages = {this.state.messages} />
     </main>
+    <div style={{ float:"left", clear: "both" }}
+             ref={(el) => { this.messagesEnd = el; }}>
+        </div>
     <ChatBar currentUser = {this.state.currentUser} changeUser = {this.onNewUser} newMessage={this.onNewMessage}/>
     </div>
     );
